@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="James Black" />
+
+<meta name="date" content="2016-08-30" />
+
+<title>pvalueplot example</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">pvalueplot example</h1>
+<h4 class="author"><em>James Black</em></h4>
+<h4 class="date"><em>2016-08-30</em></h4>
+
+
+
+<p>Below is example use of the function <code>pvalueplot</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;episheet&quot;</span>)</code></pre></div>
+<div id="look-at-one-estimate" class="section level2">
+<h2>Look at one estimate</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">episheet::<span class="kw">pvalueplot</span>(
+  <span class="dt">est1.ll =</span> <span class="fl">0.7</span>,
+  <span class="dt">est1.ul =</span> <span class="fl">1.1</span>,
+  <span class="dt">xlabel =</span> <span class="st">&quot;Odds ratio&quot;</span>
+)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="look-at-two-estimates" class="section level2">
+<h2>Look at two estimates</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">episheet::<span class="kw">pvalueplot</span>(
+  <span class="dt">est1.ll =</span> <span class="fl">0.8</span>,
+  <span class="dt">est1.ul =</span> <span class="fl">3.8</span>,
+  <span class="dt">est2.ll =</span> <span class="fl">1.2</span>,
+  <span class="dt">est2.ul =</span> <span class="dv">2</span>,
+  <span class="dt">label1 =</span> <span class="st">&quot;Estimate 1&quot;</span>,
+  <span class="dt">label2 =</span> <span class="st">&quot;Estimate 2&quot;</span>,
+  <span class="dt">xlabel =</span> <span class="st">&quot;Relative Risk&quot;</span>
+)</code></pre></div>
+<pre><code>## Confidence interval type is  95%CI</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
