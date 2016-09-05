@@ -1,7 +1,7 @@
 Package: episheet
 Type: Package
 Title: Rothman's Episheet
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person("James", "Black", , "james@epijim.uk", c("aut", "cre")),
     person("Ken Rothman", role = "cph")
@@ -20,8 +20,8 @@ Suggests: knitr, rmarkdown
 Imports: dplyr, tidyr, ggplot2, magrittr
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2016-08-30 06:11:34 UTC; blackj9
+Packaged: 2016-09-04 15:57:34 UTC; Jimmy
 Author: James Black [aut, cre],
   Ken Rothman [cph]
 Repository: CRAN
-Date/Publication: 2016-08-30 12:50:30
+Date/Publication: 2016-09-05 08:13:03
